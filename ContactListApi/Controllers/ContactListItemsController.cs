@@ -1,4 +1,5 @@
 ﻿using ContactListApi.Models;
+using ContactListApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -24,9 +25,9 @@ namespace ContactListApi.Controllers
             return _context.ContactListItems;
         }
 
-        // GET: api/ContactListItems/5
+        // GET: /api/ContactListItems/1
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetContactListItem([FromRoute] long id)
+        public async Task<IActionResult> GetContactListItem(long id)
         {
             if (!ModelState.IsValid)
             {

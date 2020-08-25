@@ -1,7 +1,9 @@
 ﻿namespace ContactListApi.Models
 {
+    [System.ComponentModel.DataAnnotations.Schema.Table("ContactListItems")]
     public class ContactListItem
     {
+        [System.ComponentModel.DataAnnotations.Key]
         public long Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

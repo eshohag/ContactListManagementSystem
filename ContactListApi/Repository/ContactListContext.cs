@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ContactListApi.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace ContactListApi.Models
+namespace ContactListApi.Repository
 {
     public class ContactListContext : DbContext
     {
@@ -12,5 +9,10 @@ namespace ContactListApi.Models
         {
         }
         public DbSet<ContactListItem> ContactListItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           
+        }
     }
 }

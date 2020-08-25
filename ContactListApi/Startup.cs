@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ContactListApi.Models;
+using ContactListApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,21 @@ namespace ContactListApi
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<ContactListContext>(opt => opt.UseSqlServer("ContactList"));
+          
+            services.AddDbContext<ContactListContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("ContactListDb")));
+
+            services.AddScoped<DbContext, ContactListContext>();
+
+            #region Repository Alias
+            services.AddScoped<IContactListItemRepository, ContactListItemRepository>();
+
+            #endregion
+
+            #region Manager Alias
+           
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
