@@ -15,7 +15,7 @@ namespace ContactListApi.Controllers
         public IActionResult Index()
         {
             var list = _contactListItemRepository.All().ToList();
-            return View();
+            return View(list);
         }
     }
 }

@@ -1,13 +1,60 @@
-﻿@{
+﻿@model IEnumerable<ContactListItem>
+
+@{
     ViewData["Title"] = "Contact List";
+    int sl = 1;
 }
 <div class="jumbotron">
-
     <div class="row">
         <div class="col-md-12">
-            <h2>Welcome!</h2>
-            <h3>Contact List Management Applications</h3>
+            <h2>Contact Lists</h2>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Any())
+            {
+                <a href="#" class="btn btn-sm btn-primary">Create new contact</a>
+                <table width="100%">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Full Name</th>
+                            <th>Phone No</th>
+                            <th>Email</th>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@sl</td>
+                                <td>@item.FirstName  @item.LastName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.Email</td>
+                                <td>@item.JobTitle</td>
+                                <td>@item.Company</td>
+                                <td>@item.City</td>
+                                <td>@item.Country</td>
+                                <td>
+                                    <a href="#" class="">Edit</a>
+                                    <a href="#" class="">Delete</a>
+                                </td>
+                            </tr>
+                            sl++;
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <span>Data not found!</span>
+            }
+        </div>
     </div>
 </div>
