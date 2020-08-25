@@ -7,41 +7,62 @@ using System.Threading.Tasks;
 
 namespace ContactListApi.Controllers
 {
-    public class ContactListController : Controller
+    public class TestController : Controller
     {
-        private readonly IContactListItemRepository _contactListItemRepository;
         private readonly ContactListContext _context;
 
-        public ContactListController(IContactListItemRepository contactListItemRepository, ContactListContext context)
+        public TestController(ContactListContext context)
         {
-            _contactListItemRepository = contactListItemRepository;
             _context = context;
         }
 
-        public IActionResult Index()
+        // GET: Test
+        public async Task<IActionResult> Index()
         {
-            var list = _contactListItemRepository.All().ToList();
-            return View(list);
+            return View(await _context.ContactListItems.ToListAsync());
         }
 
+        // GET: Test/Details/5
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var contactListItem = await _context.ContactListItems
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (contactListItem == null)
+            {
+                return NotFound();
+            }
+
+            return View(contactListItem);
+        }
+
+        // GET: Test/Create
         public IActionResult Create()
         {
-            return View(new ContactListItem());
+            return View();
         }
 
+        // POST: Test/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create(ContactListItem model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ContactListItem contactListItem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(model);
+                _context.Add(contactListItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(model);
+            return View(contactListItem);
         }
 
-        // GET: ContactList/Edit/1
+        // GET: Test/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -57,10 +78,12 @@ namespace ContactListApi.Controllers
             return View(contactListItem);
         }
 
-        // POST: ContactList/Edit/1
+        // POST: Test/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, ContactListItem contactListItem)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,FirstName,LastName,Phone,Email,JobTitle,Company,City,Country")] ContactListItem contactListItem)
         {
             if (id != contactListItem.Id)
             {
@@ -90,7 +113,7 @@ namespace ContactListApi.Controllers
             return View(contactListItem);
         }
 
-        // GET: ContactList/Delete/1
+        // GET: Test/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -98,15 +121,17 @@ namespace ContactListApi.Controllers
                 return NotFound();
             }
 
-            var contactListItem = await _context.ContactListItems.FirstOrDefaultAsync(m => m.Id == id);
+            var contactListItem = await _context.ContactListItems
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (contactListItem == null)
             {
                 return NotFound();
             }
+
             return View(contactListItem);
         }
 
-        // POST: ContactList/Delete/1
+        // POST: Test/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

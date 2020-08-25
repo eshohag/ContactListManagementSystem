@@ -42,8 +42,8 @@
                                 <td>@item.City</td>
                                 <td>@item.Country</td>
                                 <td>
-                                    <a href="#" class="">Edit</a> |
-                                    <a href="#" class="">Delete</a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                 </td>
                             </tr>
                             sl++;
