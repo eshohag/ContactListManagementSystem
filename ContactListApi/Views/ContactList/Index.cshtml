@@ -14,7 +14,7 @@
         <div class="col-md-12">
             @if (Model.Any())
             {
-                <a href="#" class="btn btn-sm btn-primary" style="margin-bottom:5px;">Create new contact</a>
+                <a asp-area="" asp-controller="ContactList" asp-action="Create" class="btn btn-sm btn-primary" style="margin-bottom:5px;">Create new contact</a>
                 <table class="table table-sm table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -42,7 +42,7 @@
                                 <td>@item.City</td>
                                 <td>@item.Country</td>
                                 <td>
-                                    <a href="#" class="">Edit</a> | 
+                                    <a href="#" class="">Edit</a> |
                                     <a href="#" class="">Delete</a>
                                 </td>
                             </tr>
