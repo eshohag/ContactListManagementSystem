@@ -32,6 +32,16 @@ namespace ContactListApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ContactListItem model)
         {
+            var isExistPhone = _contactListItemRepository.IsExist(a => a.Phone.Trim() == model.Phone.Trim());
+            var isExistEmail = _contactListItemRepository.IsExist(a => a.Email.Trim() == model.Email.Trim());
+            if (isExistPhone)
+            {
+                ModelState.AddModelError("Phone", "Already Phone no exist!");
+            }
+            if (isExistEmail)
+            {
+                ModelState.AddModelError("Email", "Already Email no exist!");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(model);
@@ -66,7 +76,16 @@ namespace ContactListApi.Controllers
             {
                 return NotFound();
             }
-
+            var isExistPhone = _contactListItemRepository.IsExist(a => a.Phone.Trim() == contactListItem.Phone.Trim());
+            var isExistEmail = _contactListItemRepository.IsExist(a => a.Email.Trim() == contactListItem.Email.Trim());
+            if (isExistPhone)
+            {
+                ModelState.AddModelError("Phone", "Already Phone no exist!");
+            }
+            if (isExistEmail)
+            {
+                ModelState.AddModelError("Email", "Already Email no exist!");
+            }
             if (ModelState.IsValid)
             {
                 try
