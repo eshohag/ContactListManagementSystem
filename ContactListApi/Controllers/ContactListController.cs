@@ -9,13 +9,13 @@ namespace ContactListApi.Controllers
 {
     public class ContactListController : Controller
     {
-        private readonly IContactListItemRepository _contactListItemRepository;
         private readonly ContactListContext _context;
+        private readonly IContactListItemRepository _contactListItemRepository;
 
-        public ContactListController(IContactListItemRepository contactListItemRepository, ContactListContext context)
+        public ContactListController(ContactListContext context, IContactListItemRepository contactListItemRepository)
         {
-            _contactListItemRepository = contactListItemRepository;
             _context = context;
+            _contactListItemRepository = contactListItemRepository;
         }
 
         public IActionResult Index()
@@ -30,6 +30,7 @@ namespace ContactListApi.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ContactListItem model)
         {
             var isExistPhone = _contactListItemRepository.IsExist(a => a.Phone.Trim() == model.Phone.Trim());
