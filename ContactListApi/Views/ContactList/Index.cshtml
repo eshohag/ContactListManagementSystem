@@ -8,13 +8,15 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Contact Lists</h2>
+            <hr style="margin-top: 0;margin-bottom: 5px;border: 0;border-top: 2px solid #A9A9A9;" />
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
+            <a asp-area="" asp-controller="ContactList" asp-action="Create" class="btn btn-sm btn-primary" style="margin-bottom:5px;">Create new contact</a>
+            <br />
             @if (Model.Any())
             {
-                <a asp-area="" asp-controller="ContactList" asp-action="Create" class="btn btn-sm btn-primary" style="margin-bottom:5px;">Create new contact</a>
                 <table class="table table-sm table-striped table-bordered table-hover">
                     <thead>
                         <tr>
