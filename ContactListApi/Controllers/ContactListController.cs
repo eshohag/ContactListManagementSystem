@@ -77,8 +77,8 @@ namespace ContactListApi.Controllers
             {
                 return NotFound();
             }
-            var isExistPhone = _contactListItemRepository.IsExist(a => a.Phone.Trim() == contactListItem.Phone.Trim());
-            var isExistEmail = _contactListItemRepository.IsExist(a => a.Email.Trim() == contactListItem.Email.Trim());
+            var isExistPhone = _contactListItemRepository.IsExist(a => a.Phone.Trim() == contactListItem.Phone.Trim() && a.Id!=id);
+            var isExistEmail = _contactListItemRepository.IsExist(a => a.Email.Trim() == contactListItem.Email.Trim() && a.Id != id);
             if (isExistPhone)
             {
                 ModelState.AddModelError("Phone", "Already Phone no exist!");

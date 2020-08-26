@@ -15,6 +15,8 @@ namespace ContactListApi.Models
         [Required]
         public string Phone { get; set; }
         [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
         [System.ComponentModel.DisplayName("Job Title")]
         public string JobTitle { get; set; }
